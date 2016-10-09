@@ -7,8 +7,8 @@
 
 curDir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
 
-DRN_USV="usv2"
-DRN_BUILD="build2"
+DRN_USV="usv"
+DRN_BUILD="build"
 
 D_PROJECT=${curDir}"/.."
 D_GIT=${D_PROJECT}"/.git"
