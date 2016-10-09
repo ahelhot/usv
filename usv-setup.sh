@@ -73,7 +73,7 @@ printf "Now we check all requirements and setup necessary packages.\n\n"
 printf "Check global installed apps: \n\n"
 
 echo "node          $(echo_if $(program_is_installed node))"
-echo "npm           $(echo_if $(program_is_installed grunt))"
+echo "npm           $(echo_if $(program_is_installed npm))"
 echo "grunt         $(echo_if $(program_is_installed grunt))"
 
 if [ $(program_is_installed node) == 0 ]; then
