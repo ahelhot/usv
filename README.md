@@ -60,7 +60,7 @@ $ cd /some-empty/project-folder/
 Скачиваем последнюю версию из git:
 
 ```
-$ git clone git@github.com:ahelhot/usv.git
+$ git clone https://github.com/ahelhot/usv.git
 ```
 
 Должна получится такая структура:
@@ -76,8 +76,7 @@ $ git clone git@github.com:ahelhot/usv.git
 Устанавливаем с помощью usv:
 
 ```
-$ cd /some-empty/project-folder/usv/
-$ bash usv-setup.sh
+$ bash ./usv/usv-setup.sh
 ```
 
 Должна получится такая структура:
