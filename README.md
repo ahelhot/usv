@@ -37,14 +37,7 @@ $ nodejs -v
 $ npm -v
 ```
 
-- Также для IDE нужно поставить watcher'ы c обычными 
-настройками. Для PHP Storm идем в 
-File->Settings->Tools->File Watchers, добавляем
-LESS и COFFEE. На этом этапе можно проверить что
-компиляторы установлены в системе, а добавлять
-watcher'ы уже в открытый проект.
-
-- Наконец если IDE не поддерживает jade(pug) файлы - 
+- если IDE не поддерживает jade(pug) файлы -
 нужно установить соответствующий плагин (например 
 PHP Storm не поддрживает *.pug из коробки)
 https://plugins.jetbrains.com/plugin/7094
@@ -63,20 +56,10 @@ $ cd /some-empty/project-folder/
 $ git clone https://github.com/ahelhot/usv.git
 ```
 
-Должна получится такая структура:
-
-```
-|- project-folder
-    |- usv
-       | - pug
-       | - package.json
-       | - ..
-```
-
 Устанавливаем с помощью usv:
 
 ```
-$ bash ./usv/usv-setup.sh
+$ python ./usv/usv-setup.py
 ```
 
 Должна получится такая структура:
