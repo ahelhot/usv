@@ -74,7 +74,6 @@ printf "Check global installed apps: \n\n"
 
 echo "node          $(echo_if $(program_is_installed node))"
 echo "npm           $(echo_if $(program_is_installed npm))"
-echo "grunt         $(echo_if $(program_is_installed grunt))"
 
 if [ $(program_is_installed node) == 0 ]; then
 
@@ -89,14 +88,6 @@ if [ $(program_is_installed npm) == 0 ]; then
     CHK_APPS_OK=0
     printf "\n${RED}npm is not installed. Check node installation.${DEF}\n"
     printf "check: npm -v\n"
-
-fi
-
-if [ $(program_is_installed grunt) == 0 ]; then
-
-    CHK_APPS_OK=0
-    printf "\n${RED}Grunt-cli is not installed. Please install grunt-cli first.${DEF}\n"
-    printf "npm install grunt-cli -g (as superuser)\n"
 
 fi
 
@@ -214,7 +205,12 @@ else
 
 fi
 
-printf "\n\n";
+echo -e "4. First time compile all styles, templates, scripts.."
+cd ${D_USV}
+grunt pug less
+
+printf "\n\n${YELLOW}==============\nALL DONE\n==============${DEF}\n\n"
+
 echo -e "${YELLOW}All operations done.${DEF}"
 echo -e "${YELLOW}For work (compiling templates) use grunt:${DEF}"
 echo -e "${YELLOW} $ ${GREEN}cd ${curDir}${DEF}"

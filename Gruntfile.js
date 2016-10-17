@@ -25,11 +25,33 @@ module.exports = function(grunt) {
             }
         },
 
-        watch: {
+        less:
+        {
+            dev:
+            {
+                options: {
+                    paths: ['assets/css']
+                },
+                expand: true,
+                cwd: '../build',
+                dest: '../build',
+                src: '**/*.less',
+                ext: '.css',
+                extDot: 'first'
+            }
+        },
+
+        watch:
+        {
             scripts:
             {
                 files: ['**/*.pug'],
                 tasks: ['pug']
+            },
+            styles:
+            {
+                files: ['**/*.less'],
+                tasks: ['less']
             }
         }
 
@@ -37,9 +59,10 @@ module.exports = function(grunt) {
 
     // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-pug');
+    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
-    grunt.registerTask('default', ['pug', 'watch']);
+    grunt.registerTask('default', ['pug', 'less', 'watch']);
 
 };
