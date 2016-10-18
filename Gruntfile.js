@@ -29,9 +29,6 @@ module.exports = function(grunt) {
         {
             dev:
             {
-                options: {
-                    paths: ['assets/css']
-                },
                 expand: true,
                 cwd: '../build',
                 dest: '../build',
@@ -41,9 +38,22 @@ module.exports = function(grunt) {
             }
         },
 
+        coffee:
+        {
+            dev:
+            {
+                expand: true,
+                cwd: '../build',
+                dest: '../build',
+                src: '**/*.coffee',
+                ext: '.js',
+                extDot: 'first'
+            }
+        },
+
         watch:
         {
-            scripts:
+            templates:
             {
                 files: ['**/*.pug'],
                 tasks: ['pug']
@@ -52,6 +62,11 @@ module.exports = function(grunt) {
             {
                 files: ['**/*.less'],
                 tasks: ['less']
+            },
+            scripts:
+            {
+                files: ['**/*.coffee'],
+                tasks: ['coffee']
             }
         }
 
@@ -60,9 +75,10 @@ module.exports = function(grunt) {
     // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-pug');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
-    grunt.registerTask('default', ['pug', 'less', 'watch']);
+    grunt.registerTask('default', ['pug', 'less', 'coffee', 'watch']);
 
 };

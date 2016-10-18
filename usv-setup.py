@@ -30,7 +30,7 @@ class BGColor:
 
 
 def con_print(message, msg_type=ConType.NORMAL):
-    _str = "  "
+    _str = ""
 
     # open
     if msg_type == ConType.NORMAL:
@@ -95,6 +95,7 @@ D_ROOT = os.path.dirname(D_WORKING)
 D_USV = D_ROOT + "/usv"
 D_BUILD = D_ROOT + "/build"
 D_GIT = D_ROOT + "/.git"
+D_MODULES = D_USV + "/node_modules"
 
 
 # Start execution of installer
@@ -174,7 +175,7 @@ else:
     os.mkdir(D_BUILD + "/assets")
     os.mkdir(D_BUILD + "/assets/fonts")
     os.mkdir(D_BUILD + "/assets/less")
-    os.mkdir(D_BUILD + "/assets/js")
+    os.mkdir(D_BUILD + "/assets/coffee")
     os.mkdir(D_BUILD + "/assets/img")
     os.mkdir(D_BUILD + "/assets/vendor")
     os.mkdir(D_BUILD + "/tmp")
@@ -208,13 +209,31 @@ else:
 
 con_println()
 
+# Install modules
+# ==========================================================
+
+con_print("3. Check project node modules:", ConType.HIGH_LIGHT)
+
+if os.path.isdir(D_MODULES):
+    con_print("  modules already installed. Skip step.", ConType.INFO)
+else:
+
+    con_print("  install modules..")
+
+    os.chdir(D_USV)
+    os.system("npm install")
+
+    con_print("  ✔ Modules installed", ConType.SUCCESS)
+
+con_println()
+
 # first time compile
 # ==========================================================
 
-con_print("3. First time compile sources:", ConType.HIGH_LIGHT)
+con_print("4. Compile sources:", ConType.HIGH_LIGHT)
 
 os.chdir(D_USV)
-os.system("grunt pug less")
+os.system("grunt pug less coffee")
 
 con_println()
 
@@ -229,6 +248,8 @@ con_println()
 con_print("For work (compiling sources) use grunt:")
 con_print(BGColor.WARNING+"$ "+BGColor.END_C+"cd "+str(D_USV))
 con_print(BGColor.WARNING+"$ "+BGColor.END_C+"grunt")
+con_println()
+con_print("read README.md for detail")
 
 con_println()
 con_println()
