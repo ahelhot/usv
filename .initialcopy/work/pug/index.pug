@@ -1,0 +1,20 @@
+extends layouts/default
+
+block content
+
+    div.title #{store.title}
+
+    include inc/title
+
+    .catalog
+
+        each p in [1,2,3]
+            // category with all default props:
+            +catalog-categoty
+            // replace default props to custom:
+            +catalog-categoty({title:"Мы можем определить название"})
+
+    div.random-name
+        | faker example
+        | random name:
+        | #{faker.name.firstName()}

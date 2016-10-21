@@ -1,0 +1,16 @@
+.category {
+  clear: both;
+  width: 100%;
+  display: inline-block;
+}
+.category > .title {
+  color: skyblue;
+  text-align: center;
+}
+.category .products {
+  text-align: center;
+}
+.category .products .product {
+  width: 125px;
+  display: inline-block;
+}

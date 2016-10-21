@@ -1,14 +1,13 @@
 {
-  "name": "usv1",
-  "version": "0.2.1",
-  "description": "jade+coffee+less",
+  "name": "usv2",
+  "version": "0.2.2",
+  "description": "jade+coffee+less+tools",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "author": "fe3dback@yandex.ru",
   "license": "ISC",
   "devDependencies": {
+    "faker": "^3.1.0",
     "grunt": "^1.0.1",
     "grunt-contrib-coffee": "^1.0.0",
     "grunt-contrib-less": "^1.4.0",

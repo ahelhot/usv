@@ -2,7 +2,6 @@
 # coding: utf-8
 # This script part of usv project
 # author: fe3dback@yandex.ru
-# version: 2.0
 
 import os
 import distutils.spawn
@@ -92,9 +91,11 @@ def install_module(name):
 # ====================
 D_WORKING = os.path.dirname(os.path.abspath(__file__))
 D_ROOT = os.path.dirname(D_WORKING)
+D_PROJECT = D_ROOT + "/project"
+D_PROJECT_GIT = D_PROJECT + "/.git"
+D_BUILD = D_PROJECT + "/build"
 D_USV = D_ROOT + "/usv"
-D_BUILD = D_ROOT + "/build"
-D_GIT = D_ROOT + "/.git"
+D_INITIAL_COPY = D_USV + "/.initialcopy"
 D_MODULES = D_USV + "/node_modules"
 
 
@@ -166,21 +167,15 @@ con_println()
 # make build
 # ==========================================================
 
-con_print("1. Make build folder:", ConType.HIGH_LIGHT)
+con_print("1. Make project folder:", ConType.HIGH_LIGHT)
 
-if os.path.isdir(D_BUILD):
-    con_print("  build exist. Skip step.", ConType.INFO)
+if os.path.isdir(D_PROJECT):
+    con_print("  project exist. Skip step.", ConType.INFO)
 else:
-    os.mkdir(D_BUILD)
-    os.mkdir(D_BUILD + "/assets")
-    os.mkdir(D_BUILD + "/assets/fonts")
-    os.mkdir(D_BUILD + "/assets/less")
-    os.mkdir(D_BUILD + "/assets/coffee")
-    os.mkdir(D_BUILD + "/assets/img")
-    os.mkdir(D_BUILD + "/assets/vendor")
-    os.mkdir(D_BUILD + "/tmp")
 
-    con_print("  ✔ build directory ready.", ConType.SUCCESS)
+    con_print("  making initial project folder..")
+    shutil.copytree(D_INITIAL_COPY, D_PROJECT)
+    con_print("  ✔ project directory ready.", ConType.SUCCESS)
 
 con_println()
 
@@ -189,20 +184,10 @@ con_println()
 
 con_print("2. Check git repo:", ConType.HIGH_LIGHT)
 
-if os.path.isdir(D_GIT):
+if os.path.isdir(D_PROJECT_GIT):
     con_print("  git exist. Skip step.", ConType.INFO)
 else:
-    con_print("  git not exist. Initializing.")
-
-    curGit = D_USV + "/.git"
-    if os.path.isdir(curGit):
-        con_print("  Detaching git from usv..")
-        shutil.rmtree(curGit)
-        con_print("  ✔ Git detached from usv.", ConType.SUCCESS)
-
-    con_print("  init git in project..")
-
-    os.chdir(D_ROOT)
+    os.chdir(D_PROJECT)
     os.system("git init .")
 
     con_print("  ✔ Git initialized", ConType.SUCCESS)

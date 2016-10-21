@@ -1,9 +1,0 @@
-extends layouts/default
-
-block content
-    include inc/title
-
-    .catalog
-
-        each p in [1,2,3]
-            +catalog-categoty({title: "Category "+p})

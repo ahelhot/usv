@@ -1,5 +1,8 @@
 module.exports = function(grunt) {
 
+    var faker = require('faker');
+    faker.locale = "ru";
+
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -13,13 +16,16 @@ module.exports = function(grunt) {
                     pretty: true,
                     data:
                     {
-                        debug: false
+                        debug: false,
+                        usv: require('./common/common'),
+                        store: require('../project/work/store'),
+                        faker: faker
                     }
                 },
                 expand: true,
-                cwd: 'pug/',
+                cwd: '../project/work/pug',
+                dest: '../project/build',
                 src: '*.pug',
-                dest: '../build',
                 ext: '.html',
                 extDot: 'first'
             }
@@ -30,8 +36,8 @@ module.exports = function(grunt) {
             dev:
             {
                 expand: true,
-                cwd: '../build',
-                dest: '../build',
+                cwd: '../project/build/assets/less',
+                dest: '../project/build/assets/less',
                 src: '**/*.less',
                 ext: '.css',
                 extDot: 'first'
@@ -43,8 +49,17 @@ module.exports = function(grunt) {
             dev:
             {
                 expand: true,
-                cwd: '../build',
-                dest: '../build',
+                cwd: '../project/build/assets/coffee',
+                dest: '../project/build/assets/coffee',
+                src: '**/*.coffee',
+                ext: '.js',
+                extDot: 'first'
+            },
+            common:
+            {
+                expand: true,
+                cwd: './common',
+                dest: './common',
                 src: '**/*.coffee',
                 ext: '.js',
                 extDot: 'first'
@@ -55,18 +70,25 @@ module.exports = function(grunt) {
         {
             templates:
             {
-                files: ['**/*.pug'],
+                files: ['../project/work/pug/**/*.pug'],
                 tasks: ['pug']
             },
             styles:
             {
-                files: ['**/*.less'],
+                files: ['../project/build/**/*.less'],
                 tasks: ['less']
             },
             scripts:
             {
-                files: ['**/*.coffee'],
-                tasks: ['coffee']
+                files: ['../project/build/**/*.coffee'],
+                tasks: ['coffee:dev']
+            },
+
+            // usv scripts
+            scripts_common:
+            {
+                files: ['./common/**/*.coffee'],
+                tasks: ['coffee:common']
             }
         }
 

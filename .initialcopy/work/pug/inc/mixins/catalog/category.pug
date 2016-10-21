@@ -1,0 +1,20 @@
+mixin catalog-categoty(data)
+
+    -
+        // default mixin state
+        // you can use usv lib to choose
+        // random value, and generate temp data
+        // see README for detail
+        var data = usv.prepare(data, {
+            title: usv.oneOf([
+                "Телевизоры", "Шкафы", "Книги"
+            ])
+        })
+
+    .category
+
+        h3.title #{data.title}
+        .products
+            +catalog-product
+            +catalog-product
+            +catalog-product

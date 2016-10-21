@@ -1,0 +1,21 @@
+mixin catalog-product(data)
+
+    -
+        var data = usv.prepare(data, {
+            title: usv.oneOf([
+                "Чайник", "Кофеварка", "Стиральная машина",
+                "Холодильник", "Ноутбук"
+            ]),
+            image: usv.oneOf([
+                "http://placehold.it/100x100",
+                "http://placehold.it/100x140"
+            ]),
+            price: usv.range(500,2000)
+        })
+
+    .product
+        .preview
+            img(src=data.image)
+        .title #{data.title}
+        .price
+            | Цена: #{data.price}
