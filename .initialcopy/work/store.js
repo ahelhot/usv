@@ -10,5 +10,4 @@ module.exports = {
 
     // some custom data
     title: "Hello Store!"
-
 };

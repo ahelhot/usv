@@ -1,17 +1,21 @@
 {
   "name": "usv2",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "description": "jade+coffee+less+tools",
   "main": "index.js",
   "scripts": {},
   "author": "fe3dback@yandex.ru",
   "license": "ISC",
   "devDependencies": {
-    "faker": "^3.1.0",
     "grunt": "^1.0.1",
+    "grunt-coffeelint": "0.0.16",
+    "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-coffee": "^1.0.0",
+    "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-less": "^1.4.0",
     "grunt-contrib-pug": "^1.0.0",
-    "grunt-contrib-watch": "^1.0.0"
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-exec": "^1.0.1",
+    "pug-inheritance": "^2.0.0"
   }
 }

@@ -11,7 +11,6 @@
 - [**jade(pug) шаблонизатор**](https://pugjs.org/language/tags.html)
 - [**less препроцессор**](http://lesscss.org/features/)
 - [**coffee препроцессор**](http://coffeescript.org/)
-- [faker.js](https://github.com/marak/Faker.js/)
 - тулзы для автоматической установки и настройки
 - адаптивный фреймворк (js/css на mediaquery) // todo
 - библиотека usv.js для удобной работы с шаблонами
@@ -135,18 +134,6 @@ div.title #{store.title}
 
 //Результат:
 <div class="title">Hello Store!</div>
-```
-##### 4.1.3 Использование faker.js
-Данная библиотека подходит для генерации любых рандомных данные.
-- **Подробнее читайте: https://github.com/marak/Faker.js/**
-```
-// in template.pug
-.random-name Имя: #{faker.name.firstName()}
-
-// результат:
-<div class="random-name">
-    Имя: Арина
-</div>
 ```
 
 ##### 4.1.4 Подробнее
