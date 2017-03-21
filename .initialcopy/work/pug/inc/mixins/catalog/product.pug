@@ -1,16 +1,16 @@
 mixin catalog-product(data)
 
     -
-        var data = usv.prepare(data, {
-            title: usv.oneOf([
+        var data = USV.prepare(data, {
+            title: USV.oneOf([
                 "Чайник", "Кофеварка", "Стиральная машина",
                 "Холодильник", "Ноутбук"
             ]),
-            image: usv.oneOf([
+            image: USV.oneOf([
                 "http://placehold.it/100x100",
                 "http://placehold.it/100x140"
             ]),
-            price: usv.range(500,2000)
+            price: USV.range(500,2000)
         })
 
     .product

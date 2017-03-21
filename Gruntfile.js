@@ -1,13 +1,17 @@
 module.exports = function(grunt) {
 
+    var exec = require('exec');
+
     // define work directories
-    var pUSV = ".";
+    var pUSV = process.cwd();
     var pROOT = pUSV+"/..";
     var pPROJECT = pROOT + "/project";
     var pBUILD = pPROJECT + "/build";
     var pWORK = pPROJECT + "/work";
     var pPUG = pWORK + "/pug";
     var pPUG_CACHE = pWORK + "/.cache";
+
+    // ./../project/build
 
     // Project configuration.
     grunt.initConfig({
@@ -26,8 +30,8 @@ module.exports = function(grunt) {
                     {
                         debug: false,
                         USV: require(pUSV+'/common/common'),
-                        store: require(pWORK+'/store'),
-                    },
+                        store: require(pWORK+'/store')
+                    }
                 },
                 files: [{
                     expand: true,
@@ -36,7 +40,7 @@ module.exports = function(grunt) {
                     src: '*.pug',
                     ext: '.html',
                     extDot: 'first'
-                }],
+                }]
             }
         },
 
@@ -53,9 +57,9 @@ module.exports = function(grunt) {
                         src: ['*.html'],
                         dest: pBUILD,
                         filter: 'isFile'
-                    },
-                ],
-            },
+                    }
+                ]
+            }
         },
 
         less:
@@ -110,35 +114,55 @@ module.exports = function(grunt) {
                 options: {
                     force: true
                 }
-            },
+            }
         },
 
         watch:
         {
             templates:
             {
-                files: [pPUG+'/**/*.pug'],
+                files: ['**/*.pug'],
                 tasks: ['pug', 'copy'],
                 options: {
                     spawn: false,
-                },
+                    cwd: pPUG
+                }
             },
             styles:
             {
-                files: [pBUILD+'/**/*.less'],
-                tasks: ['less']
+                files: ['**/*.less'],
+                tasks: ['less'],
+                options: {
+                    spawn: false,
+                    cwd: pBUILD
+                }
             },
             scripts:
             {
-                files: [pBUILD+'/**/*.coffee'],
-                tasks: ['coffeelint:dev', 'coffee:dev']
+                files: ['**/*.coffee'],
+                tasks: ['coffeelint:dev', 'coffee:dev'],
+                options: {
+                    spawn: false,
+                    cwd: pBUILD
+                }
             },
 
             // usv scripts
             scripts_common:
             {
-                files: [pUSV+'/common/**/*.coffee'],
-                tasks: ['coffeelint:common', 'coffee:common']
+                files: ['common/**/*.coffee'],
+                tasks: ['coffeelint:common', 'coffee:common'],
+                options: {
+                    spawn: false,
+                    cwd: pUSV
+                }
+            },
+
+            configFiles: {
+                files: [ 'Gruntfile.js' ],
+                options: {
+                    reload: true
+                }
             }
         },
 
@@ -149,7 +173,7 @@ module.exports = function(grunt) {
                     return "spd-say \"BEEEEP. Coffee lint error.!\""
                 }
             }
-        },
+        }
 
     });
 
@@ -191,6 +215,9 @@ module.exports = function(grunt) {
         OnLintErrorCheck();
     });
 
+    console.log("USV v2.1, Happy codding!");
+    console.log("------------------------");
+
     // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -202,5 +229,7 @@ module.exports = function(grunt) {
 
     // Default task(s).
     grunt.registerTask('default', ['less', 'coffee', 'pug', 'copy', 'watch']);
+
+
 
 };

@@ -5,8 +5,9 @@ mixin catalog-categoty(data)
         // you can use usv lib to choose
         // random value, and generate temp data
         // see README for detail
-        var data = usv.prepare(data, {
-            title: usv.oneOf([
+
+        var data = USV.prepare(data, {
+            title: USV.oneOf([
                 "Телевизоры", "Шкафы", "Книги"
             ])
         })

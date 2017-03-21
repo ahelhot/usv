@@ -1,12 +1,13 @@
 {
   "name": "usv2",
-  "version": "1.0.0",
-  "description": "jade+coffee+less+tools",
+  "version": "2.1.0",
+  "description": "pug+coffee+less+tools",
   "main": "index.js",
   "scripts": {},
-  "author": "fe3dback@yandex.ru",
-  "license": "ISC",
+  "author": "K.Perov <fe3dback@yandex.ru>",
+  "license": "MIT",
   "devDependencies": {
+    "exec": "^0.2.1",
     "grunt": "^1.0.1",
     "grunt-coffeelint": "0.0.16",
     "grunt-contrib-clean": "^1.0.0",
