@@ -24,17 +24,17 @@
 
 ##### Установка для каждого проекта
 Создаем и переходим в **пустую папку** где будет проект и сам usv.
-```
+```bash
 $ cd /some-empty/root-folder/
 ```
 
 Скачиваем последнюю версию из git:
-```
+```bash
 $ git clone https://github.com/ahelhot/usv.git
 ```
 
 Устанавливаем с помощью usv:
-```
+```bash
 $ python ./usv/usv-setup.py
 ```
 
@@ -54,7 +54,7 @@ $ python ./usv/usv-setup.py
 --------
 #### 4.0 Сборщик
 Для автоматической компиляции coffee, less, pug файлов используйте grunt.
-```
+```bash
 $ cd /root-folder/usv
 $ grunt
 ```
@@ -65,14 +65,14 @@ $ grunt
 - мы используем одни компоненты в разных страницах (например header, footer)
 - все страницы наследуют общий layout (таким образом все стили и скрипты общие). Вместо верстки в страницах, мы только указываем какую часть layout'а они должны расширять
 - короткий синтакс экономит время. К примеру:
-```
+```pug
 .products
   .product
     .title Очередной товар
     .desc Очень полезная вещь
 ```
 вместо:
-```
+```html
 <div class='products'>
   <div class='product'>
     <div class='title'>Очередной товар</div>
@@ -81,7 +81,7 @@ $ grunt
 </div>
 ```
 - позволяет использовать компоненты с переменными:
-```
+```pug
 mixin catalog-product(data)
 
     -
@@ -91,10 +91,10 @@ mixin catalog-product(data)
                 "Холодильник", "Ноутбук"
             ]),
             image: USV.oneOf([
-                "http://placehold.it/100x100",
-                "http://placehold.it/100x140"
+                USV.image(100,100), // image can be placeholded from different services
+                USV.image(100,140)
             ]),
-            price: USV.range(500,2000)
+            price: USV.range(500, 2000)
         })
 
     .product
@@ -104,13 +104,13 @@ mixin catalog-product(data)
         .price
             | Цена: #{data.price}
 ```
-```
+```pug
 .products
     +catalog-product({title:"КОМБАЙН 9000"})
     +catalog-product
 ```
 что мы получим:
-```
+```html
 <div class="products">
   <div class="product">
     <div class="preview"><img src="http://placehold.it/100x140"/></div>
@@ -127,14 +127,15 @@ mixin catalog-product(data)
 ##### 4.1.2 Использование store.js
 В папке project/work есть файл store.js. Мы можете положить туда любые данные в json, они будут доступны по всему проекту в шаблонах.
 Например так:
-```
+```pug
 //in store.js
 {title: "Hello Store!"}
 
 //in template.pug
 div.title #{store.title}
-
-//Результат:
+```
+Результат:
+```html
 <div class="title">Hello Store!</div>
 ```
 
