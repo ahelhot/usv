@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     var pPROJECT = pROOT + "/project";
     var pBUILD = pPROJECT + "/build";
     var pWORK = pPROJECT + "/work";
-    var pPUG = pWORK + "/pug";
+    var pPUG = pPROJECT;
     var pPUG_CACHE = pWORK + "/.cache";
 
     // ./../project/build
@@ -18,162 +18,162 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         pug:
-        {
-            compile:
             {
-                options:
-                {
-                    skip: 'node_modules',
-                    pretty: true,
-                    basedir: pPUG,
-                    data:
+                compile:
                     {
-                        debug: false,
-                        USV: require(pUSV+'/common/common'),
-                        store: require(pWORK+'/store')
+                        options:
+                            {
+                                skip: 'node_modules',
+                                pretty: true,
+                                basedir: pPUG,
+                                data:
+                                    {
+                                        debug: false,
+                                        USV: require(pUSV+'/common/common'),
+                                        store: require(pPROJECT+'/store')
+                                    }
+                            },
+                        files: [{
+                            expand: true,
+                            cwd: pPUG,
+                            dest: pPUG_CACHE,
+                            src: '*.pug',
+                            ext: '.html',
+                            extDot: 'first'
+                        }]
                     }
-                },
-                files: [{
-                    expand: true,
-                    cwd: pPUG,
-                    dest: pPUG_CACHE,
-                    src: '*.pug',
-                    ext: '.html',
-                    extDot: 'first'
-                }]
-            }
-        },
+            },
 
         copy:
-        {
-            pug:
             {
-                files:
-                [
-                    // includes files within path
+                pug:
                     {
-                        expand: true,
-                        cwd: pPUG_CACHE,
-                        src: ['*.html'],
-                        dest: pBUILD,
-                        filter: 'isFile'
+                        files:
+                            [
+                                // includes files within path
+                                {
+                                    expand: true,
+                                    cwd: pPUG_CACHE,
+                                    src: ['*.html'],
+                                    dest: pBUILD,
+                                    filter: 'isFile'
+                                }
+                            ]
                     }
-                ]
-            }
-        },
+            },
 
         less:
-        {
-            dev:
             {
-                expand: true,
-                cwd: pBUILD+'/assets/less',
-                dest: pBUILD+'/assets/less',
-                src: '**/*.less',
-                ext: '.css',
-                extDot: 'first'
-            }
-        },
+                dev:
+                    {
+                        expand: true,
+                        cwd: pBUILD+'/assets/less',
+                        dest: pBUILD+'/assets/less',
+                        src: '**/*.less',
+                        ext: '.css',
+                        extDot: 'first'
+                    }
+            },
 
         coffee:
-        {
-            dev:
             {
-                expand: true,
-                cwd: pBUILD+'/assets/js',
-                dest: pBUILD+'/assets/js',
-                src: '**/*.coffee',
-                ext: '.js',
-                extDot: 'first'
+                dev:
+                    {
+                        expand: true,
+                        cwd: pBUILD+'/assets/js',
+                        dest: pBUILD+'/assets/js',
+                        src: '**/*.coffee',
+                        ext: '.js',
+                        extDot: 'first'
+                    },
+                common:
+                    {
+                        expand: true,
+                        cwd: pUSV+'/common',
+                        dest: pUSV+'/common',
+                        src: '**/*.coffee',
+                        ext: '.js',
+                        extDot: 'first'
+                    }
             },
-            common:
-            {
-                expand: true,
-                cwd: pUSV+'/common',
-                dest: pUSV+'/common',
-                src: '**/*.coffee',
-                ext: '.js',
-                extDot: 'first'
-            }
-        },
 
         coffeelint:
-        {
-            dev: {
-                files: {
-                    src: [pBUILD+'/assets/js/**/*.coffee']
+            {
+                dev: {
+                    files: {
+                        src: [pBUILD+'/assets/js/**/*.coffee']
+                    },
+                    options: {
+                        force: true
+                    }
                 },
-                options: {
-                    force: true
+                common: {
+                    files: {
+                        src: [pUSV+'/common/**/*.coffee']
+                    },
+                    options: {
+                        force: true
+                    }
                 }
             },
-            common: {
-                files: {
-                    src: [pUSV+'/common/**/*.coffee']
-                },
-                options: {
-                    force: true
-                }
-            }
-        },
 
         watch:
-        {
-            templates:
             {
-                files: ['**/*.pug'],
-                tasks: ['pug', 'copy'],
-                options: {
-                    spawn: false,
-                    cwd: pPUG
-                }
-            },
-            styles:
-            {
-                files: ['**/*.less'],
-                tasks: ['less'],
-                options: {
-                    spawn: false,
-                    cwd: pBUILD
-                }
-            },
-            scripts:
-            {
-                files: ['**/*.coffee'],
-                tasks: ['coffeelint:dev', 'coffee:dev'],
-                options: {
-                    spawn: false,
-                    cwd: pBUILD
-                }
-            },
+                templates:
+                    {
+                        files: ['**/*.pug'],
+                        tasks: ['pug', 'copy'],
+                        options: {
+                            spawn: false,
+                            cwd: pPUG
+                        }
+                    },
+                styles:
+                    {
+                        files: ['**/*.less'],
+                        tasks: ['less'],
+                        options: {
+                            spawn: false,
+                            cwd: pBUILD
+                        }
+                    },
+                scripts:
+                    {
+                        files: ['**/*.coffee'],
+                        tasks: ['coffeelint:dev', 'coffee:dev'],
+                        options: {
+                            spawn: false,
+                            cwd: pBUILD
+                        }
+                    },
 
-            // usv scripts
-            scripts_common:
-            {
-                files: ['common/**/*.coffee'],
-                tasks: ['coffeelint:common', 'coffee:common'],
-                options: {
-                    spawn: false,
-                    cwd: pUSV
+                // usv scripts
+                scripts_common:
+                    {
+                        files: ['common/**/*.coffee'],
+                        tasks: ['coffeelint:common', 'coffee:common'],
+                        options: {
+                            spawn: false,
+                            cwd: pUSV
+                        }
+                    },
+
+                configFiles: {
+                    files: [ 'Gruntfile.js' ],
+                    options: {
+                        reload: true
+                    }
                 }
             },
-
-            configFiles: {
-                files: [ 'Gruntfile.js' ],
-                options: {
-                    reload: true
-                }
-            }
-        },
 
         exec:
-        {
-            lint_error: {
-                cmd: function() {
-                    return "spd-say \"BEEEEP. Coffee lint error.!\""
+            {
+                lint_error: {
+                    cmd: function() {
+                        return "spd-say \"BEEEEP. Coffee lint error.!\""
+                    }
                 }
             }
-        }
 
     });
 
@@ -229,7 +229,4 @@ module.exports = function(grunt) {
 
     // Default task(s).
     grunt.registerTask('default', ['less', 'coffee', 'pug', 'copy', 'watch']);
-
-
-
 };

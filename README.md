@@ -1,4 +1,4 @@
-# Удобная система верстки v2.1 (usv)
+# Удобная система верстки v2.2 (usv)
 - author: fe3dback@yandex.ru
 - home: https://github.com/fe3dback/usv
 
@@ -30,7 +30,7 @@ $ cd /some-empty/root-folder/
 
 Скачиваем последнюю версию из git:
 ```bash
-$ git clone https://github.com/ahelhot/usv.git
+$ git clone https://github.com/fe3dback/usv.git
 ```
 
 Устанавливаем с помощью usv:
